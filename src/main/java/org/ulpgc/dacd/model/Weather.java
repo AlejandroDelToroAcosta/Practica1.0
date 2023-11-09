@@ -42,4 +42,16 @@ public class Weather {
     public double getPop() {
         return pop;
     }
+
+    @Override
+    public String toString() {
+        return "Weather{" +
+                "clouds=" + clouds +
+                ", wind=" + wind +
+                ", temperature=" + temperature +
+                ", humidity=" + humidity +
+                ", instant=" + instant +
+                ", pop=" + pop +
+                '}';
+    }
 }
