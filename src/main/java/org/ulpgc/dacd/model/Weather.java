@@ -10,6 +10,8 @@ public class Weather {
     private final Instant instant;
     private final double pop;
 
+
+
     public Weather(int clouds, double wind, double temperature, int humidity, Instant instant, double pop) {
         this.clouds = clouds;
         this.wind = wind;
@@ -38,6 +40,7 @@ public class Weather {
     public Instant getInstant() {
         return instant;
     }
+
 
     public double getPop() {
         return pop;

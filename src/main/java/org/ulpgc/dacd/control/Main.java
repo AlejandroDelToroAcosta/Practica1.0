@@ -6,4 +6,5 @@ public class Main {
         WeatherController weatherController = new WeatherController(new WeatherMapProvider());
         weatherController.execute();
     }
+
 }
