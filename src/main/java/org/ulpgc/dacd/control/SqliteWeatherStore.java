@@ -28,7 +28,6 @@ public class SqliteWeatherStore implements WeatherStore {
                         "instant TEXT," +
                         "pop REAL" +
                         ")";
-                System.out.println("Tabla creada");
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(createTableSQL);
 
@@ -54,7 +53,7 @@ public class SqliteWeatherStore implements WeatherStore {
 
             }
         } else {
-            System.out.println("No weather data found for ");
+            System.out.println("No weather data found for" + location.getName() + "at" + weather.getInstant());
         }
 
     }

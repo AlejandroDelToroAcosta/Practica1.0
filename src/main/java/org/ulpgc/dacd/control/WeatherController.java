@@ -3,10 +3,6 @@ package org.ulpgc.dacd.control;
 import org.ulpgc.dacd.model.Location;
 import org.ulpgc.dacd.model.Weather;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -80,7 +76,6 @@ public class WeatherController {
         for (Location iteredLocation : locationList) {
             for (Instant iteredInstant : instantList) {
                 weatherStore.load(iteredLocation, iteredInstant);
-
             }
         }
     }
