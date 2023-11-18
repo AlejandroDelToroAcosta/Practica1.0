@@ -35,7 +35,7 @@ public class WeatherController {
 
         createInstant(instantList);
         getWeatherCall(instantList, locationList, weatherArrayList);
-        loadCall(instantList, locationList);
+        saveCall(instantList, locationList);
     }
 
     public static ArrayList<Instant> createInstant(ArrayList<Instant> instants) {
@@ -71,11 +71,11 @@ public class WeatherController {
         return weatherArrayList;
     }
 
-    public static void loadCall(ArrayList<Instant> instantList, List<Location> locationList){
+    public static void saveCall(ArrayList<Instant> instantList, List<Location> locationList){
         WeatherStore weatherStore = new SqliteWeatherStore();
         for (Location iteredLocation : locationList) {
             for (Instant iteredInstant : instantList) {
-                weatherStore.load(iteredLocation, iteredInstant);
+                weatherStore.save(iteredLocation, iteredInstant);
             }
         }
     }
