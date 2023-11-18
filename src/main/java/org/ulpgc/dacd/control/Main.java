@@ -11,8 +11,9 @@ public class Main {
         scheduler.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                WeatherController weatherController = new WeatherController(new WeatherMapProvider());
+                WeatherController weatherController = new WeatherController(new WeatherMapProvider(args[0]));
                 weatherController.execute();
+
             }
         }, 0, 6, TimeUnit.HOURS);
     }

@@ -13,13 +13,23 @@ import java.time.Instant;
 
 
 public class WeatherMapProvider implements WeatherProvider {
+    private static String API_KEY;
+
+    public WeatherMapProvider(String API_KEY) {
+        this.API_KEY = API_KEY;
+    }
+
+    public static String getApiKey() {
+        return API_KEY;
+    }
+
     @Override
     public Weather getWeather(Location location, Instant instant) {
         Weather weatherObject = null;
         try {
             String apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat="+ location.getLat()+
                     "&lon="+location.getLon()+
-                    "&appid=7e7cbb9533f4457ccb9a16973f9dcb7a&units=metric";
+                    "&appid=" + API_KEY + "&units=metric";
 
             String jsonString = Jsoup.connect(apiUrl).ignoreContentType(true).execute().body();
             Gson gson = new Gson();

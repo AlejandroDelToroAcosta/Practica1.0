@@ -8,10 +8,9 @@ import java.time.Instant;
 
 public class SqliteWeatherStore implements WeatherStore {
 
-
     @Override
     public void save(Location location, Instant instant) {
-        WeatherProvider weatherProvider = new WeatherMapProvider();
+        WeatherProvider weatherProvider = new WeatherMapProvider(WeatherMapProvider.getApiKey());
         Weather weather = weatherProvider.getWeather(location, instant);
 
         if (weather != null) {
