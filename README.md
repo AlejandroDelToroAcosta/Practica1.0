@@ -1,72 +1,62 @@
-# Práctica 1: Captura de Datos a partir de Fuentes Externas
+# Practice 1: Data Capture from External Sources
 
-## Universidad de Las Palmas de Gran Canaria
-### Escuela de Ingeniería Informática
-#### Grado en Ciencia e Ingeniería de Datos
-##### Desarrollo de Aplicaciones para Ciencia de Datos
-
----
-
-## Descripción
-
-  Este proyecto se conecta con el servicio web: https://openweathermap.org/api , este servicio es una API que contiene datos meteorológicos de cualquier lugar del mundo. Esta práctica llama a la API cada 6 horas para 
-  obtener la predicción meteorológica de los próximos 5 días en las 8 Islas Canarias, concretamente a las 12 del mediodía.
-
-  La aplicación se conecta con la API,una vez establecida la conexión, nuestra aplicación toma los datos meteorológicos que le interesan( temperatura, probabilidad de precipitaciones, la humedad,
-  nubes y velocidad del viento)a continuación, guarda estos datos y crea una base de datos con 8 tablas(una para cada isla) e inserta en cada una de estas tablas los datos correspondientes para cada isla.
-### Ejecución
-
-Para ejecutar la aplicación, se debe proporcionar como argumento la apikey personal para la API de OpenWeatherMap. El usuario también deberá añadir la ruta en la que se le creará la base de datos del parte meteorológico, en la línea 18 de la clase SqliteWeatherStore.
+## University of Las Palmas de Gran Canaria
+### School of Computer Engineering
+#### Bachelor's Degree in Data Science and Engineering
+##### Development of Applications for Data Science
 
 ---
 
+## Description
 
-## Recursos Utilizados
+ This project connects to the web service: https://openweathermap.org/api. This service is an API that contains weather data for any location worldwide. This practice calls the API every 6 hours to obtain the weather forecast for the next 5 days on the 8 Canary Islands, specifically at noon.
 
-  Este proyecto ha sido desarrollado en su totalidad mediante InteliJ IDEA. IntelliJ IDEA es un entorno de desarrollo integrado (IDE, por sus siglas en inglés) creado por JetBrains. 
-  JetBrains es una empresa que desarrolla herramientas y soluciones para desarrolladores de software. 
-  IntelliJ IDEA está diseñado específicamente para el desarrollo de aplicaciones en Java, aunque también ofrece soporte para otros lenguajes de programación como Kotlin, Groovy, Scala y más.
+The application connects to the API, and once the connection is established, it retrieves the relevant weather data (temperature, probability of precipitation, humidity, clouds, and wind speed). Subsequently, it saves this data and creates a database with 8 tables (one for each island) and inserts the corresponding data for each island into these tables.
+### Execution
 
-  A lo largo del desarrollo del proyecto se ha usado el sistema de control de versiones Git. Git es
-  una herramienta fundamental para el seguimiento de cambios en el código fuente durante el desarrollo de proyectos de software. Todas las versiones del proyecto se encuentran en la rama 'master'.
+To execute the application, the user must provide their personal API key for the OpenWeatherMap API as an argument. The user should also add the path where the weather report database will be created on line 18 of the SqliteWeatherStore class.
 
-  En cuanto al procedimiento, la aplicación establece la conexión con la API a través de la librería Jsoup. Jsoup es una libreria Java que proporciona operaciones para trabajar con HTML y XML. 
-  Permite extraer y manipular datos, que podrán ser utilizados convenientemente para nuestras necesidades.
-  Por otro lado, la aplicación se apoya en la interfaz JDBC(Java Database Connectivity) para todo lo que tiene que ver con la creación y el manejo de la base de datos y sus tablas. JDBC es es una API 
-  de Java que proporciona un conjunto de clases e interfaces para permitir que las aplicaciones Java se conecten y accedan a bases de datos. 
-  JDBC facilita la interacción entre programas escritos en Java y una amplia variedad de sistemas de gestión de bases de datos.
+---
+
+
+## Resources
+
+  This project has been developed entirely using IntelliJ IDEA. IntelliJ IDEA is an Integrated Development Environment (IDE) created by JetBrains. JetBrains is a company that develops tools and solutions for software developers. IntelliJ IDEA is specifically designed for Java application development, although it also offers support for other programming languages such as Kotlin, Groovy, Scala, and more.
+
+Throughout the project's development, the Git version control system has been used. Git is a fundamental tool for tracking changes in source code during software project development. All project versions are stored in the 'master' branch.
+
+Regarding the procedure, the application establishes the connection with the API through the Jsoup library. Jsoup is a Java library that provides operations for working with HTML and XML. It allows for the extraction and manipulation of data, which can be conveniently used for our needs. Additionally, the application relies on the JDBC (Java Database Connectivity) interface for everything related to the creation and management of the database and its tables. JDBC is an API for Java that provides a set of classes and interfaces to allow Java applications to connect to and access databases. JDBC facilitates interaction between programs written in Java and a wide variety of database management systems.
   
-### Herramientas y Tecnologías
+### Tools 
 
-- [Git](https://git-scm.com/): Sistema de control de versiones para el seguimiento de cambios en el código fuente durante el desarrollo de proyectos de software.
-- [Jsoup](https://jsoup.org/): Librería Java para trabajar con HTML y XML, facilitando la extracción y manipulación de datos.
-- [JDBC (Java Database Connectivity)](https://docs.oracle.com/javase/tutorial/jdbc/): API de Java para la conexión y acceso a bases de datos.
+- [Git](https://git-scm.com/): Version control system for tracking changes in source code during software project development.
+- [Jsoup](https://jsoup.org/): Java library for working with HTML and XML, facilitating data extraction and manipulation
+- [JDBC (Java Database Connectivity)](https://docs.oracle.com/javase/tutorial/jdbc/): Java API for connecting to and accessing databases.
 
 ---
-## Diseño
+## Design
 
-Este proyecto ha sido desarrollado teniendo en cuenta el patrón de diseño MVC (Modelo-Vista-Controlador) y sus derivados. El patrón MVC ayuda a obtener un software de alto nivel, evitando la interdependencia entre sus capas y promoviendo un alto grado de modularidad y cohesión.
+This project has been developed considering the Model-View-Controller (MVC) design pattern and its derivatives. The MVC pattern helps achieve high-level software, avoiding interdependence between its layers and promoting a high degree of modularity and cohesion.
 
-En términos generales, el patrón MVC divide la aplicación en tres componentes principales:
+In general terms, the MVC pattern divides the application into three main components:
 
-- **Modelo:** Representa la lógica y los datos de la aplicación.
-- **Vista:** Es responsable de la presentación y la interfaz de usuario.
-- **Controlador:** Maneja las interacciones del usuario y coordina las acciones entre el modelo y la vista.
+Model: Represents the logic and data of the application.
+View: Is responsible for the presentation and user interface.
+Controller: Handles user interactions and coordinates actions between the model and the view.
+Derivatives of the MVC pattern, such as MVVM (Model-View-ViewModel) and MVP (Model-View-Presenter), adapt the basic approach to address different needs and development contexts.
 
-Los derivados del patrón MVC, como MVVM (Modelo-Vista-ViewModel) y MVP (Modelo-Vista-Presentador), adaptan el enfoque básico para abordar diferentes necesidades y contextos de desarrollo.
-
-A continucacón se muestra la abstracción del proyecto a través de un diagrama de clases. Este diagrama ha sido usado como guía durante todo el desarrollo de la aplicación.
+Below is the abstraction of the project through a class diagram. This diagram has been used as a guide throughout the development of the application.
 
 ![image](https://github.com/AlejandroDelToroAcosta/Practica1.0/assets/145200194/89f9aef5-82a8-463d-8f34-2f5903b1d03b)
 
 
 
 ---
-## Índice
+## Index
 
-1. [Descripción](#descripción)
-   - [Ejecución](#ejecución)
-2. [Recursos Utilizados](#recursos-utilizados)
-   - [Herramientas y Tecnologías](#herramientas-y-tecnologías)
-3. [Diseño](#diseño)
+1. [Description](#description)
+   - [Execution](#execution)
+2. [Resources](#resources)
+   - [Tools](#tools)
+3. [Design](#design)
   
