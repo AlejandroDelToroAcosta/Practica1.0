@@ -11,7 +11,10 @@ public class Main {
         scheduler.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                WeatherController weatherController = new WeatherController(new WeatherMapProvider(args[0]));
+                WeatherStore weatherStore = new JMSWeatherStore(args[1],args[2]);
+                WeatherProvider weatherProvider = new WeatherMapProvider(args[0]);
+
+                WeatherController weatherController = new WeatherController(weatherProvider, weatherStore);
                 weatherController.execute();
 
             }

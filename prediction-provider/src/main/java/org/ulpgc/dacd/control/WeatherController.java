@@ -10,10 +10,13 @@ import java.util.List;
 
 public class WeatherController {
 
-    public WeatherProvider weatherProvider;
+    private WeatherProvider weatherProvider;
 
-    public WeatherController(WeatherProvider weatherProvider) {
+    private WeatherStore weatherStore;
+
+    public WeatherController(WeatherProvider weatherProvider, WeatherStore weatherStore) {
         this.weatherProvider = weatherProvider;
+        this.weatherStore = weatherStore;
     }
 
     public void execute() {
@@ -35,6 +38,7 @@ public class WeatherController {
 
         createInstant(instantList);
         getWeatherCall(instantList, locationList, weatherArrayList);
+        saveCall(weatherArrayList);
 
     }
 
@@ -71,9 +75,9 @@ public class WeatherController {
         return weatherArrayList;
     }
 
-
-    public static void main(String[] args) {
-        WeatherController weatherController = new WeatherController(new WeatherMapProvider(WeatherMapProvider.getApiKey()));
-        weatherController.execute();
+    public void saveCall(ArrayList<Weather> weatherArrayList) {
+        for (Weather iteredWeather: weatherArrayList){
+            weatherStore.save(iteredWeather);
+        }
     }
 }

@@ -8,7 +8,10 @@ public class Weather {
     private final double temperature;
     private final int humidity;
     private final Instant instant;
-    private final double pop;
+    private final double rainProbability;
+
+    private final static String ss = "prediction-provider";
+    private final static Instant ts = Instant.now();
 
     public Weather(int clouds, double wind, double temperature, int humidity, Instant instant, double pop) {
         this.clouds = clouds;
@@ -16,7 +19,7 @@ public class Weather {
         this.temperature = temperature;
         this.humidity = humidity;
         this.instant = instant;
-        this.pop = pop;
+        this.rainProbability = pop;
     }
 
     public int getClouds() {
@@ -39,8 +42,8 @@ public class Weather {
         return instant;
     }
 
-    public double getPop() {
-        return pop;
+    public double getRainProbability() {
+        return rainProbability;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class Weather {
                 ", temperature=" + temperature +
                 ", humidity=" + humidity +
                 ", instant=" + instant +
-                ", pop=" + pop +
+                ", pop=" + rainProbability +
                 '}';
     }
 }
