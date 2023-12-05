@@ -54,7 +54,7 @@ public class WeatherController {
         return instants;
     }
 
-    public static ArrayList<Weather> getWeatherCall(ArrayList<Instant> instantList, List<Location> locationList,
+    public ArrayList<Weather> getWeatherCall(ArrayList<Instant> instantList, List<Location> locationList,
                                                     ArrayList<Weather> weatherArrayList) {
         WeatherProvider weatherProvider = new WeatherMapProvider(WeatherMapProvider.getApiKey());
 
@@ -78,6 +78,8 @@ public class WeatherController {
     public void saveCall(ArrayList<Weather> weatherArrayList) {
         for (Weather iteredWeather: weatherArrayList){
             weatherStore.save(iteredWeather);
+            System.out.println(weatherArrayList);
+
         }
     }
 }

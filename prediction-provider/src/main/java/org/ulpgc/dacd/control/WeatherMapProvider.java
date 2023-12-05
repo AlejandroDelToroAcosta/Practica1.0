@@ -53,7 +53,7 @@ public class WeatherMapProvider implements WeatherProvider {
                 long unixTimestamp = dt;
                 Instant weatherInstant = Instant.ofEpochSecond(unixTimestamp);
                 if (weatherInstant.equals(instant)) {
-                    weatherObject = new Weather(all, windSpeed, temperature, humidity, weatherInstant, pop);
+                    weatherObject = new Weather(all, windSpeed, temperature, humidity, weatherInstant, pop, location);
                     break;
                 }
 

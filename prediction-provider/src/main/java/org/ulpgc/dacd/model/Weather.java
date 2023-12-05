@@ -9,17 +9,23 @@ public class Weather {
     private final int humidity;
     private final Instant instant;
     private final double rainProbability;
+    private final Location location;
 
-    private final static String ss = "prediction-provider";
-    private final static Instant ts = Instant.now();
+    public final static String ss = "prediction-provider";
+    public final static Instant ts = Instant.now();
 
-    public Weather(int clouds, double wind, double temperature, int humidity, Instant instant, double pop) {
+    public Weather(int clouds, double wind, double temperature, int humidity, Instant instant, double rainProbability, Location location) {
         this.clouds = clouds;
         this.wind = wind;
         this.temperature = temperature;
         this.humidity = humidity;
         this.instant = instant;
-        this.rainProbability = pop;
+        this.rainProbability = rainProbability;
+        this.location = location;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 
     public int getClouds() {
@@ -46,6 +52,13 @@ public class Weather {
         return rainProbability;
     }
 
+    public String getSs(){
+        return ss;
+    }
+    public Instant getTs(){
+        return ts;
+    }
+
     @Override
     public String toString() {
         return "Weather{" +
@@ -54,7 +67,9 @@ public class Weather {
                 ", temperature=" + temperature +
                 ", humidity=" + humidity +
                 ", instant=" + instant +
-                ", pop=" + rainProbability +
+                ", rainProbability=" + rainProbability +
+                ", ss ="+ ss+
+                ",ts="+ ts+
                 '}';
     }
 }
