@@ -3,40 +3,33 @@ package org.ulpgc.dacd.model;
 import java.time.Instant;
 
 public class Weather {
-    private final int clouds;
-    private final double wind;
-    private final double temperature;
-    private final int humidity;
-    private final Instant instant;
-    private final double rainProbability;
-    private final Location location;
+    private Location location;
+    private Double temperature;
+    private int humidity;
+    private Double rain;
+    private int clouds;
+    private Double windSpeed;
+    private Instant predictionTs;
+    private final String ss;
+    private final Instant ts;
 
-    public final static String ss = "prediction-provider";
-    public final static Instant ts = Instant.now();
-
-    public Weather(int clouds, double wind, double temperature, int humidity, Instant instant, double rainProbability, Location location) {
-        this.clouds = clouds;
-        this.wind = wind;
+    public Weather(Location location, Double temperature, int humidity, Double rain, int clouds, Double windSpeed, Instant predictionTs) {
+        this.location = location;
         this.temperature = temperature;
         this.humidity = humidity;
-        this.instant = instant;
-        this.rainProbability = rainProbability;
-        this.location = location;
+        this.rain = rain;
+        this.clouds = clouds;
+        this.windSpeed = windSpeed;
+        this.predictionTs = predictionTs;
+        this.ss = "prediction-provider";
+        this.ts = Instant.now();
     }
 
     public Location getLocation() {
         return location;
     }
 
-    public int getClouds() {
-        return clouds;
-    }
-
-    public double getWind() {
-        return wind;
-    }
-
-    public double getTemperature() {
+    public Double getTemperature() {
         return temperature;
     }
 
@@ -44,32 +37,43 @@ public class Weather {
         return humidity;
     }
 
-    public Instant getInstant() {
-        return instant;
+    public Double getRain() {
+        return rain;
     }
 
-    public double getRainProbability() {
-        return rainProbability;
+    public int getClouds() {
+        return clouds;
     }
 
-    public String getSs(){
+    public Double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public Instant getPredictionTs() {
+        return predictionTs;
+    }
+
+    public String getSs() {
         return ss;
     }
-    public Instant getTs(){
+
+    public Instant getTs() {
         return ts;
     }
 
     @Override
     public String toString() {
         return "Weather{" +
-                "clouds=" + clouds +
-                ", wind=" + wind +
+                "location=" + location +
                 ", temperature=" + temperature +
                 ", humidity=" + humidity +
-                ", instant=" + instant +
-                ", rainProbability=" + rainProbability +
-                ", ss ="+ ss+
-                ",ts="+ ts+
+                ", rain=" + rain +
+                ", clouds=" + clouds +
+                ", windSpeed=" + windSpeed +
+                ", predictionTs=" + predictionTs +
+                ", ss='" + ss + '\'' +
+                ", ts=" + ts +
                 '}';
     }
 }
+

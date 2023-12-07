@@ -1,19 +1,11 @@
 package org.ulpgc.dacd;
 
-import org.ulpgc.dacd.model.Weather;
-
-import java.util.ArrayList;
+import javax.jms.JMSException;
 
 public class Main {
-
-    public static void main(String[] args) {
-
-
-            WeatherMessageReceiver messageReceiver = new WeatherMessageReceiver(args[0], args[1]);
-            messageReceiver.receive();
-            WeatherEventBuilder weatherEventBuilder = new WeatherEventBuilder();
-            weatherEventBuilder.buildEvent(messageReceiver.receive());
-
-
+    public static void main(String[] args) throws JMSException {
+        Subscriber subscriber = new AMQTopicSubscriber(args[0]);
+        Listener listener = new FileEventStoreBuilder(args[2]);
+        subscriber.start(args[1], listener);
     }
 }

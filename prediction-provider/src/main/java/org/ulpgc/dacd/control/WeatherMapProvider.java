@@ -36,29 +36,32 @@ public class WeatherMapProvider implements WeatherProvider {
             JsonObject json = gson.fromJson(jsonString, JsonObject.class);
             JsonArray weatherJsonArray = json.getAsJsonObject().getAsJsonArray("list");
 
-            for (JsonElement weather : weatherJsonArray) {
-                JsonObject weatherJsonObject = weather.getAsJsonObject();
+            for (JsonElement element : weatherJsonArray) {
+                JsonObject weather = element.getAsJsonObject();
 
-                JsonObject main = weatherJsonObject.getAsJsonObject("main");
-                JsonObject clouds = weatherJsonObject.getAsJsonObject("clouds");
-                JsonObject wind = weatherJsonObject.getAsJsonObject("wind");
+                JsonObject main = weather.get("main").getAsJsonObject();
+                Double temp = main.get("temp").getAsDouble();
 
-                double temperature = main.get("temp").getAsDouble();
+                Double rain = weather.get("pop").getAsDouble();
+
                 int humidity = main.get("humidity").getAsInt();
-                double pop = weatherJsonObject.get("pop").getAsDouble();
-                int dt = weatherJsonObject.get("dt").getAsInt();
-                int all = clouds.get("all").getAsInt();
-                double windSpeed = wind.get("speed").getAsDouble();
 
-                long unixTimestamp = dt;
+                JsonObject clouds = weather.get("clouds").getAsJsonObject();
+                int all = clouds.get("all").getAsInt();
+
+                JsonObject wind = weather.get("wind").getAsJsonObject();
+                Double speed = wind.get("speed").getAsDouble();
+
+                long ts = weather.get("dt").getAsLong();
+
+                long unixTimestamp = ts;
                 Instant weatherInstant = Instant.ofEpochSecond(unixTimestamp);
+
                 if (weatherInstant.equals(instant)) {
-                    weatherObject = new Weather(all, windSpeed, temperature, humidity, weatherInstant, pop, location);
+                    weatherObject = new Weather(location,temp, humidity, rain, all, speed, weatherInstant);
                     break;
                 }
-
             }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
