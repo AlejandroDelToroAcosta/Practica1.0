@@ -15,7 +15,11 @@ public class Main {
             public void run() {
                 WeatherStore weatherStore = new JMSWeatherStore(args[1]);
                 WeatherController weatherController = new WeatherController(new WeatherMapProvider(args[0]), weatherStore);
-                weatherController.execute();
+                try {
+                    weatherController.execute();
+                } catch (MyException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }, 0, 6, TimeUnit.HOURS);
     }

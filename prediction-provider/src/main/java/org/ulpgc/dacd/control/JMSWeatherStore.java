@@ -21,7 +21,7 @@ public class JMSWeatherStore implements WeatherStore {
     }
 
     @Override
-    public void save(Weather weather) {
+    public void save(Weather weather) throws MyException {
         try {
             ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
             Connection connection = connectionFactory.createConnection();
@@ -48,6 +48,7 @@ public class JMSWeatherStore implements WeatherStore {
             connection.close();
         } catch (JMSException e) {
             e.printStackTrace();
+            throw new MyException("Error setting connection with the topic", e);
         }
 
     }

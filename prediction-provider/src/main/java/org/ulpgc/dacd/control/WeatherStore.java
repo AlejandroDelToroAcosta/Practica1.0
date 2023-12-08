@@ -4,5 +4,5 @@ import org.ulpgc.dacd.model.Weather;
 
 
 public interface WeatherStore {
-    void save(Weather weather);
+    void save(Weather weather) throws MyException;
 }

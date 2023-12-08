@@ -19,7 +19,7 @@ public class WeatherController {
         this.weatherStore = weatherStore;
     }
 
-    public void execute() {
+    public void execute() throws MyException {
 
         Location elHierro = new Location(-16.25462, 28.46824, "Valverde");
         Location laPalma = new Location(-17.76421, 28.68351, " Santa Cruz de La Palma");
@@ -75,7 +75,7 @@ public class WeatherController {
         return weatherArrayList;
     }
 
-    public void saveCall(ArrayList<Weather> weatherArrayList) {
+    public void saveCall(ArrayList<Weather> weatherArrayList) throws MyException {
         for (Weather iteredWeather: weatherArrayList){
             weatherStore.save(iteredWeather);
             System.out.println(weatherArrayList);
