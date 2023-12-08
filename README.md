@@ -50,7 +50,9 @@ Derivatives of the MVC pattern, such as MVVM (Model-View-ViewModel) and MVP (Mod
 
 Below is the abstraction of the project through class diagram. These diagrams has been used as a guide throughout the development of the application.
 
-![image](https://github.com/AlejandroDelToroAcosta/Practica1.0/assets/145200194/89f9aef5-82a8-463d-8f34-2f5903b1d03b)
+![image](https://github.com/AlejandroDelToroAcosta/Practica1.0/assets/145200194/5e19154e-4b86-4cc8-8ba6-9a580c81c7df)
+![image](https://github.com/AlejandroDelToroAcosta/Practica1.0/assets/145200194/0dcced58-da1b-474e-9c06-10b3d3093a09)
+
 
 
 
