@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HotelController {
+    private ReservationStore reservationStore;
+
+    public HotelController(ReservationStore reservationStore) {
+        this.reservationStore = reservationStore;
+    }
+
     public void execute(){
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
@@ -78,9 +84,16 @@ public class HotelController {
                     h10RubiconPalace, hotelLancelot, hotelBeatrizCostaSpa,
                     hotelTorredelConde, hotelVillaGomera, hotelGranRey);
 
-            ArrayList<Hotel> weatherArrayList = new ArrayList<>();
-            getHotelCall(reservations, weatherArrayList);
+            ArrayList<Hotel> hotelArrayList = new ArrayList<>();
+            getHotelCall(reservations, hotelArrayList);
+            saveCall(hotelArrayList);
 
+        }
+    }
+
+    private void saveCall(ArrayList<Hotel> hotelArrayList) {
+        for (Hotel iteredHotel:hotelArrayList){
+            reservationStore.save(iteredHotel);
         }
     }
 

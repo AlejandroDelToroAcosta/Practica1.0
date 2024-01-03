@@ -21,7 +21,7 @@ public class AMQTopicSubscriber implements Subscriber{
     }
 
     @Override
-    public void start(String topicName, Listener listener) throws MyException {
+    public void start(String topicName, String topicName2, Listener listener) throws MyException {
         try {
             Topic destination = session.createTopic(topicName);
             MessageConsumer consumer = session.createDurableSubscriber(destination, clientId + topicName);
@@ -48,5 +48,30 @@ public class AMQTopicSubscriber implements Subscriber{
         } catch (JMSException e) {
             throw new MyException("Error setting up MessageListener", e);
         }
+
+    }
+     try {
+        Topic destination = session.createTopic(topicName2);
+        MessageConsumer consumer = session.createDurableSubscriber(destination, clientId + topicName);
+        consumer.setMessageListener(message -> {
+            try {
+                String textMessage = ((TextMessage) message).getText();
+
+                if (processedMessages.add(textMessage)) {
+                    listener.consume(textMessage);
+                    System.out.println("Message received:" + textMessage);
+                } else {
+
+                }
+            } catch (JMSException e) {
+                try {
+                    throw new MyException("Error receiving message", e);
+                } catch (MyException ex) {
+                    throw new RuntimeException(ex);
+                }
+            } catch (MyException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

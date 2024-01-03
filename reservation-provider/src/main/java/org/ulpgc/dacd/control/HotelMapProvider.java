@@ -25,6 +25,7 @@ public class HotelMapProvider implements HotelProvider {
             JsonArray ratesArray = resultObject.getAsJsonArray("rates");
 
             hotel = new Hotel(ratesArray,reservation);
+
         }catch (IOException e) {
             throw new RuntimeException(e);
         }
