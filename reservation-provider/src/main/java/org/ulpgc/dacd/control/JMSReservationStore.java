@@ -40,7 +40,7 @@ public class JMSReservationStore implements ReservationStore{
 
             producer.send(message);
 
-            System.out.println("Weather sent to broker:" + json);
+            System.out.println("Hotel sent to broker:" + json);
 
             connection.close();
         } catch (JMSException e) {

@@ -6,8 +6,6 @@ import java.time.Instant;
 import java.util.List;
 
 public class Hotel {
-    private static String ss = "reservation-provider";
-    private static Instant ts = Instant.now() ;
 
     private final JsonArray rates;
     private final Reservation reservation;
@@ -17,13 +15,6 @@ public class Hotel {
         this.reservation = reservation;
     }
 
-    public static String getSs() {
-        return ss;
-    }
-
-    public static Instant getTs() {
-        return ts;
-    }
 
     public JsonArray getRates() {
         return rates;
