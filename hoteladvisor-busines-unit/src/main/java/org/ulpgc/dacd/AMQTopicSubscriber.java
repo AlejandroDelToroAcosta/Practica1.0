@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class AMQTopicSubscriber implements Subscriber{
     private final Connection connection;
-    private final String clientId  ="event-store-builder";;
+    private final String clientId  ="event-store-builder2";;
     private final Session session;
     private Set<String> processedMessages = new HashSet<>();
 
@@ -22,7 +22,7 @@ public class AMQTopicSubscriber implements Subscriber{
     }
 
     @Override
-    public void receive(String topicName,String topicName2, SqliteStorage storage) throws MyException {
+    public void receive(String topicName,String topicName2,SqliteStorage storage) throws MyException {
         try {
             Topic destination = session.createTopic(topicName);
             MessageConsumer consumer = session.createDurableSubscriber(destination, clientId + topicName);
@@ -31,7 +31,7 @@ public class AMQTopicSubscriber implements Subscriber{
                     String textMessage = ((TextMessage) message).getText();
 
                     if (processedMessages.add(textMessage)) {
-                        storage.store(textMessage);
+                        storage.storeWeather(textMessage);
                         System.out.println("Message received:" + textMessage);
                     } else {
 
@@ -54,7 +54,7 @@ public class AMQTopicSubscriber implements Subscriber{
                     String textMessage = ((TextMessage) message).getText();
 
                     if (processedMessages.add(textMessage)) {
-                        storage.store(textMessage);
+                        storage.storeHotel(textMessage);
                         System.out.println("Message received:" + textMessage);
                     } else {
 
