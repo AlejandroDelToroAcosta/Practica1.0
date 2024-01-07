@@ -4,6 +4,7 @@ import org.ulpgc.dacd.model.Hotel;
 import org.ulpgc.dacd.model.Reservation;
 
 import java.time.*;
+import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -20,17 +21,20 @@ public class HotelController {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
 
-        if (time.isAfter(LocalTime.of(17,0))){
+        if (time.isAfter(LocalTime.of(17, 0))) {
             date = date.plusDays(1);
         }
-        for (int i = 0; i < 2; i++) {
+
+        for (int i = 1; i < 2; i++) {
             String checkIn = date.format(DateTimeFormatter.ISO_DATE);
-            String checkOut = date.plusDays(1).format(DateTimeFormatter.ISO_DATE);
+            String checkOut = date.plusDays(i).format(DateTimeFormatter.ISO_DATE);
 
 
             Reservation laPardela = new Reservation(checkIn, checkOut, "La Pardela", "g3360203-d25244761", "La Graciosa");
             Reservation apartmentsLaGraciosa = new Reservation(checkIn, checkOut, "Apartments la Graciosa", "g3360203-d3411835", "La Graciosa");
             Reservation evitaBeach = new Reservation(checkIn, checkOut, "Evita Beach", "g1190272-d2645782", "La Graciosa");
+            Reservation graciosaMar = new Reservation(checkIn, checkOut, "Graciosa Mar", "g1190272-d945848", "La Graciosa");
+            Reservation elMarineroAvenida = new Reservation(checkIn, checkOut, "El Marinero Avenida", "g3360203-d17628872", "La Graciosa");
 
 
             Reservation barceloFuerteventuraMar = new Reservation(checkIn, checkOut, "Barceló Fuerteventura Mar", "g658907-d255145", "Fuerteventura");
@@ -71,18 +75,20 @@ public class HotelController {
             Reservation h10TaburientePlaya = new Reservation(checkIn, checkOut, "H10 Taburiente Playa", "g659966-d289252", "La Palma");
             Reservation paradorDeLaPalma = new Reservation(checkIn, checkOut, "Parador De La Palma", "g642213-d482745", "La Palma");
             Reservation bananaGardenLaPalma = new Reservation(checkIn, checkOut, "Banana Garden La Palma", "g187476-d24074151", "La Palma");
+            Reservation hotelLasOlas = new Reservation(checkIn, checkOut, "Hotel las Olas", "g642213-d488944", "La Palma");
+            Reservation hotelHaciendaSanJorge = new Reservation(checkIn, checkOut, "Hotel Hacienda San Jorge", "g642213-d535420", "La Palma");
 
 
             Reservation hotelTorredelConde = new Reservation(checkIn, checkOut, "Hotel Torre Del Conde", "g187470-d566709","La Gomera");
             Reservation hotelVillaGomera = new Reservation(checkIn, checkOut, "Hotel Villa Gomera", "g187470-d614341","La Gomera");
             Reservation hotelGranRey = new Reservation(checkIn, checkOut, "Hotel Gran Rey", "g674782-d616495","La Gomera");
 
-            List<Reservation> reservations = List.of(laPardela, evitaBeach, apartmentsLaGraciosa, barceloFuerteventuraMar,
+            List<Reservation> reservations = List.of(laPardela, evitaBeach, apartmentsLaGraciosa, elMarineroAvenida, graciosaMar, barceloFuerteventuraMar,
                     fuerteventuraPrinces, meliaFuerteventura, h10Atlantic, jardinTropical, hotelBotanico,
                     puntaGrande, apartamentosLosVerodes, paradorElHierro,
                     lopesanBaobabResort, lopesanCostaMeloneras, aboraBuenaventura,
                     h10RubiconPalace, hotelLancelot, hotelBeatrizCostaSpa,
-                    hotelTorredelConde, hotelVillaGomera, hotelGranRey);
+                    hotelTorredelConde, hotelVillaGomera, hotelGranRey, h10TaburientePlaya, paradorDeLaPalma, bananaGardenLaPalma,hotelLasOlas,hotelHaciendaSanJorge);
 
             ArrayList<Hotel> hotelArrayList = new ArrayList<>();
             getHotelCall(reservations, hotelArrayList);

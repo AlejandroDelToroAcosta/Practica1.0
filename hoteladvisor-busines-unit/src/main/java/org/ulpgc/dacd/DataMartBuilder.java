@@ -34,8 +34,9 @@ public class DataMartBuilder implements SqliteStorage{
                         "timestamp TEXT," +
                         "island TEXT" +  // Nueva columna "Island"
                         ")";
-                Statement statement = connection.createStatement();
-                statement.executeUpdate(createTableSQL);
+                try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(createTableSQL);
+                }
 
                 Gson gson = new Gson();
                 JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
@@ -43,45 +44,36 @@ public class DataMartBuilder implements SqliteStorage{
 
                 if (ratesArray != null && !ratesArray.isJsonNull() && ratesArray.size() > 0) {
                     String reservationName = jsonObject.getAsJsonObject("reservation").get("name").getAsString();
-                    String island = jsonObject.getAsJsonObject("reservation").get("island").getAsString();  // Nuevo campo "island"
+                    String checkoutDate = jsonObject.getAsJsonObject("reservation").get("checkOut").getAsString();
+                    String island = jsonObject.getAsJsonObject("reservation").get("island").getAsString();
 
-                    // Verificar si ya existe un registro con el mismo reservation_name
-                    String checkExistingRecordSQL = "SELECT * FROM hotels WHERE reservation_name = '" + reservationName + "'";
-                    ResultSet resultSet = statement.executeQuery(checkExistingRecordSQL);
+                    String checkExistingRecordSQL = "SELECT * FROM hotels WHERE reservation_name = ? AND check_out_date = ?";
+                    try (PreparedStatement checkExistingRecordStmt = connection.prepareStatement(checkExistingRecordSQL)) {
+                        checkExistingRecordStmt.setString(1, reservationName);
+                        checkExistingRecordStmt.setString(2, checkoutDate);
+                        ResultSet resultSet = checkExistingRecordStmt.executeQuery();
 
-                    if (resultSet.next()) {
-                        // Actualizar el registro existente
-                        String updateDataSQL = "UPDATE hotels SET " +
-                                "code = '" + ratesArray.get(0).getAsJsonObject().get("code").getAsString() + "'," +
-                                "hotel_name = '" + ratesArray.get(0).getAsJsonObject().get("name").getAsString() + "'," +
-                                "rate = " + ratesArray.get(0).getAsJsonObject().get("rate").getAsInt() + "," +
-                                "tax = " + ratesArray.get(0).getAsJsonObject().get("tax").getAsInt() + "," +
-                                "check_in_date = '" + jsonObject.getAsJsonObject("reservation").get("checkIn").getAsString() + "'," +
-                                "check_out_date = '" + jsonObject.getAsJsonObject("reservation").get("checkOut").getAsString() + "'," +
-                                "apikey = '" + jsonObject.getAsJsonObject("reservation").get("apikey").getAsString() + "'," +
-                                "ss = '" + jsonObject.getAsJsonObject("reservation").get("ss").getAsString() + "'," +
-                                "timestamp = '" + jsonObject.getAsJsonObject("reservation").get("ts").getAsString() + "'," +
-                                "island = '" + island + "'" +  // Nuevo campo "island"
-                                "WHERE reservation_name = '" + reservationName + "'";
-                        statement.executeUpdate(updateDataSQL);
-                        System.out.println("Datos actualizados");
-                    } else {
-                        // Insertar un nuevo registro
-                        String insertDataSQL = "INSERT INTO hotels (code, hotel_name, rate, tax, check_in_date, check_out_date, reservation_name, apikey, ss, timestamp, island) VALUES " +
-                                "('" + ratesArray.get(0).getAsJsonObject().get("code").getAsString() + "','" +
-                                ratesArray.get(0).getAsJsonObject().get("name").getAsString() + "'," +
-                                ratesArray.get(0).getAsJsonObject().get("rate").getAsInt() + "," +
-                                ratesArray.get(0).getAsJsonObject().get("tax").getAsInt() + ",'" +
-                                jsonObject.getAsJsonObject("reservation").get("checkIn").getAsString() + "','" +
-                                jsonObject.getAsJsonObject("reservation").get("checkOut").getAsString() + "','" +
-                                reservationName + "','" +
-                                jsonObject.getAsJsonObject("reservation").get("apikey").getAsString() + "','" +
-                                jsonObject.getAsJsonObject("reservation").get("ss").getAsString() + "','" +
-                                jsonObject.getAsJsonObject("reservation").get("ts").getAsString() + "','" +
-                                island +  // Nuevo campo "island"
-                                "')";
-                        statement.executeUpdate(insertDataSQL);
-                        System.out.println("Datos insertados");
+                        if (resultSet.next()) {
+                            System.out.println("El registro ya existe para el mismo reservation_name y check_out_date");
+                        } else {
+                            String insertDataSQL = "INSERT INTO hotels (code, hotel_name, rate, tax, check_in_date, check_out_date, reservation_name, apikey, ss, timestamp, island) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                            try (PreparedStatement insertDataStmt = connection.prepareStatement(insertDataSQL)) {
+                                insertDataStmt.setString(1, ratesArray.get(0).getAsJsonObject().get("code").getAsString());
+                                insertDataStmt.setString(2, ratesArray.get(0).getAsJsonObject().get("name").getAsString());
+                                insertDataStmt.setInt(3, ratesArray.get(0).getAsJsonObject().get("rate").getAsInt());
+                                insertDataStmt.setInt(4, ratesArray.get(0).getAsJsonObject().get("tax").getAsInt());
+                                insertDataStmt.setString(5, jsonObject.getAsJsonObject("reservation").get("checkIn").getAsString());
+                                insertDataStmt.setString(6, checkoutDate);
+                                insertDataStmt.setString(7, reservationName);
+                                insertDataStmt.setString(8, jsonObject.getAsJsonObject("reservation").get("apikey").getAsString());
+                                insertDataStmt.setString(9, jsonObject.getAsJsonObject("reservation").get("ss").getAsString());
+                                insertDataStmt.setString(10, jsonObject.getAsJsonObject("reservation").get("ts").getAsString());
+                                insertDataStmt.setString(11, island);
+
+                                insertDataStmt.executeUpdate();
+                                System.out.println("Datos insertados");
+                            }
+                        }
                     }
                 } else {
                     System.out.println("La lista de rates está vacía o es nula");
@@ -100,7 +92,6 @@ public class DataMartBuilder implements SqliteStorage{
         try {
             Connection connection = DriverManager.getConnection( path);
 
-            // Crear la tabla si no existe
             String createTableSQL = "CREATE TABLE IF NOT EXISTS weather (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name TEXT," +
@@ -135,7 +126,7 @@ public class DataMartBuilder implements SqliteStorage{
                 ResultSet resultSet = checkInstantExistenceStmt.executeQuery();
 
                 if (!resultSet.next()) {
-                    String insertWeatherSQL = "INSERT INTO weather (name, clouds, wind, temperature, humidity, instant, pop, ts) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+                    String insertWeatherSQL = "INSERT INTO weather (name, clouds, wind, temperature, humidity, instant, pop) VALUES (?, ?, ?, ?, ?, ?,?)";
                     try (PreparedStatement preparedStatement = connection.prepareStatement(insertWeatherSQL)) {
                         preparedStatement.setString(1, name);
                         preparedStatement.setInt(2, clouds);

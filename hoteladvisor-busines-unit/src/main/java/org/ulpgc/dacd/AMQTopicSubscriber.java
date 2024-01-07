@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class AMQTopicSubscriber implements Subscriber{
     private final Connection connection;
-    private final String clientId  ="event-store-builder2";;
+    private final String clientId  ="data-mart-builder";;
     private final Session session;
     private Set<String> processedMessages = new HashSet<>();
 
