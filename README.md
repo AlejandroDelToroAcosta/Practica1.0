@@ -42,12 +42,15 @@ Throughout the project's development, the Git version control system has been us
 Regarding the procedure, the application establishes the connection with the API through the Jsoup library. Jsoup is a Java library that provides operations for working with HTML and XML. It allows for the extraction and manipulation of data, which can be conveniently used for our needs. 
 
 This application relies in the broker concept, in particular in ActiveMQ. ActiveMQ is an open-source messaging system based on the Java Message Service (JMS) protocol. It operates as a message broker, enabling asynchronous communication between applications in a distributed network.
+
+This software also uses JDBC for creating de database. JDBC stands for Java Database Connectivity. It is a Java-based API (Application Programming Interface) that allows Java applications to interact with relational databases.
   
 ### Tools 
 
 - [Git](https://git-scm.com/): Version control system for tracking changes in source code during software project development.
 - [Jsoup](https://jsoup.org/): Java library for working with HTML and XML, facilitating data extraction and manipulation
 - [ActiveMQ]( https://activemq.apache.org): Open source, multi-protocol, Java-based message broker
+- [JDBC](https://www.oracle.com/database/technologies/appdev/jdbc.html): Java based api to interact with relational data bases.
 
 ---
 ## Design
