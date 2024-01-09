@@ -20,9 +20,9 @@ The "hoteladvisor-business-unit" creates a datamart by connecting to the topics 
 
 ### Execution
 
-To execute the application, in the "prediction-provider" module, the user must add their personal apiKey as arguments to connect with the openweathermap API, along with the URL to connect with the broker.
+To execute the application, in the "prediction-provider" module, the user must add their personal openweather apiKey as arguments to connect with the openweathermap API, along with the URL to connect with the broker.
 
-In the "reservation-provider" module the user must add as an argument the url to conect to the broker.
+In the "reservation-provider" module the user must add as an argument the url to conect to the broker and the root directory to create the datalake directory.
 
 The "datalake-builder" must receive as parameter the url to connect to the broker.
 
