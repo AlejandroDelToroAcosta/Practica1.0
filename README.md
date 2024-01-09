@@ -69,7 +69,7 @@ Below is the abstraction of the project through class diagram. These diagrams ha
 ![image](https://github.com/AlejandroDelToroAcosta/Practica1.0/assets/145200194/5e19154e-4b86-4cc8-8ba6-9a580c81c7df)
 ![hotelmodel](https://github.com/AlejandroDelToroAcosta/Practica1.0/assets/145200194/276a77ac-c38f-4cf1-8fbe-b0799b19fbec)
 ![datalekbuildermodel](https://github.com/AlejandroDelToroAcosta/Practica1.0/assets/145200194/2a82267a-6508-43ad-b8c6-0ed773f35b7f)
-![image](https://github.com/AlejandroDelToroAcosta/Practica1.0/assets/145200194/7095158a-cb8d-4d0e-b765-a6baff6733ad)
+![image](https://github.com/AlejandroDelToroAcosta/Practica1.0/assets/145200194/14864996-e4a6-46f7-a492-698ad1ec4996)
 
 
 
