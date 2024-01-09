@@ -25,7 +25,7 @@ public class HotelController {
             date = date.plusDays(1);
         }
 
-        for (int i = 1; i < 2; i++) {
+        for (int i = 1; i < 5; i++) {
             String checkIn = date.format(DateTimeFormatter.ISO_DATE);
             String checkOut = date.plusDays(i).format(DateTimeFormatter.ISO_DATE);
 

@@ -1,40 +1,39 @@
-package org.ulpgc.dacd.userinterface;
+package org.ulpgc.dacd.model;
 
 import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
-public class UserInterface {
+public class ComandSet {
+
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public static void main(String[] args) {
+
+
+    public void execute(String url) {
         System.out.println("Welcome to the Reservation System!");
-        String url = args[0];
 
         Instant checkInDate = Instant.now();
-        if (LocalDate.now().isAfter(ChronoLocalDate.from(LocalTime.NOON))){
+
+        if (LocalTime.now().isAfter(LocalTime.of(17,0))){
             checkInDate = checkInDate.plus(1, ChronoUnit.DAYS);
         }
 
         Island chosenIsland = chooseIsland();
 
-        Instant checkOutDate = chooseReservationDate("Check-out");
+        Instant checkOutDate = chooseReservationDate("Check-out", checkInDate);
 
         long reservationDuration = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
         System.out.println("Reservation duration: " + reservationDuration + " days");
         System.out.println("Chosen island: " + chosenIsland.toString());
 
-        // Get and display the average meteorological data for the reservation period
         displayAverageWeatherData(chosenIsland.getCapital(), checkInDate, checkOutDate, url);
 
         hotelAdvisor(chosenIsland.getName(), checkOutDate, url);
-
-
 
     }
 
@@ -57,7 +56,6 @@ public class UserInterface {
                     double avgHumidity = resultSet.getDouble("avg_humidity");
                     double avgPop = resultSet.getDouble("avg_pop");
 
-                    // Display the average weather data to the user (you can adapt this code according to your needs)
                     System.out.println("Average weather data " +
                             " during the reservation period (" + formatInstantAsDate(checkInDate) +
                             " to " + formatInstantAsDate(checkOutDate) + "):");
@@ -77,7 +75,7 @@ public class UserInterface {
         }
     }
 
-    private static Instant chooseReservationDate(String type) {
+    private static Instant chooseReservationDate(String type, Instant chekin) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Select the " + type + " date:");
@@ -92,19 +90,19 @@ public class UserInterface {
         switch (option) {
 
             case 1:
-                reservationDate = Instant.now().plus(1, ChronoUnit.DAYS);
+                reservationDate = chekin.plus(1, ChronoUnit.DAYS);
                 break;
             case 2:
-                reservationDate = Instant.now().plus(2, ChronoUnit.DAYS);
+                reservationDate = chekin.plus(2, ChronoUnit.DAYS);
                 break;
             case 3:
-                reservationDate = Instant.now().plus(3, ChronoUnit.DAYS);
+                reservationDate = chekin.plus(3, ChronoUnit.DAYS);
                 break;
             case 4:
-                reservationDate = Instant.now().plus(4, ChronoUnit.DAYS);
+                reservationDate =chekin.plus(4, ChronoUnit.DAYS);
                 break;
             case 5:
-                reservationDate = Instant.now().plus(5, ChronoUnit.DAYS);
+                reservationDate = chekin.plus(5, ChronoUnit.DAYS);
                 break;
             default:
                 System.out.println("Invalid option. Selecting today by default.");
@@ -178,7 +176,7 @@ public class UserInterface {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 System.out.println("Recomended hotels in " + isla + ":");
-                while (resultSet.next()) {
+                if (resultSet.next()) {
                     int rate = resultSet.getInt("rate");
                     int tax = resultSet.getInt("tax");
                     String checkInDate = resultSet.getString("check_in_date");
@@ -197,6 +195,10 @@ public class UserInterface {
                     System.out.println("CheckOut: " + checkOutDate);
                     System.out.println("Final price: " + totalPrice);
                     System.out.println("----------------------------------------");
+
+                }else {
+                    System.out.println("No hotels available for the given search.\n");
+                    System.out.println("Try with a different check-out date.\n");
                 }
             }
 

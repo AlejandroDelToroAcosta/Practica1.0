@@ -11,6 +11,11 @@ import java.time.format.DateTimeFormatter;
 
 
 public class FileEventStoreBuilder implements Listener {
+    private String root;
+
+    public FileEventStoreBuilder(String root) {
+        this.root = root;
+    }
 
     @Override
     public void hotelConsume(String message, String topicName) throws MyException {
@@ -27,7 +32,7 @@ public class FileEventStoreBuilder implements Listener {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String formattedDate = zonedDateTime.format(formatter);
 
-        String directoryPath = "datalake"+"\\"+"eventstore" + "\\" + topicName+"\\"+ss;
+        String directoryPath = root+"\\"+"datalake"+"\\"+"eventstore" + "\\" + topicName+"\\"+ss;
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdirs();
@@ -56,7 +61,7 @@ public class FileEventStoreBuilder implements Listener {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String formattedDate = zonedDateTime.format(formatter);
 
-        String directoryPath = "datalake" + "\\" +"eventstore"+"\\"+ topicName+"\\"+ss;
+        String directoryPath =root+"\\"+  "datalake"+"\\"+"eventstore" + "\\" + topicName+"\\"+ss;
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdirs();

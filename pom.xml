@@ -12,7 +12,7 @@
         <module>prediction-provider</module>
         <module>datalake-builder</module>
         <module>reservation-provider</module>
-        <module>hoteladvisor-busines-unit</module>
+        <module>hoteladvisor-business-unit</module>
     </modules>
 
     <properties>

@@ -1,4 +1,4 @@
-package org.ulpgc.dacd;
+package org.ulpgc.dacd.controller;
 
 public interface SqliteStorage {
     void storeWeather(String message);

@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>hoteladvisor-busines-unit</artifactId>
+    <artifactId>hoteladvisor-business-unit</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.xerial</groupId>

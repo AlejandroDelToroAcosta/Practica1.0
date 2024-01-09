@@ -1,4 +1,4 @@
-package org.ulpgc.dacd.userinterface;
+package org.ulpgc.dacd.model;
 
 public class Island {
     private String name;

@@ -1,6 +1,6 @@
 package org.ulpgc.dacd;
 
 public interface Subscriber {
-    void start(String topicname,String topicName2, Listener listener) throws MyException;
+    void start(Listener listener, String topicName, String topicname2) throws MyException;
 
 }
